@@ -24,25 +24,90 @@ spec:
         name: git-clone
       params:
         - name: url
-          value: $(params.git-url)
+          value: https://github.com/gauravkr19/tekton-pipiline.git
         - name: revision
-          value: $(params.git-revision)
+          value: master
       workspaces:
         - name: output
           workspace: git-source
-    - name: build-image
+    - name: build-image-details
       taskRef:
         name: kaniko
       params:
         - name: IMAGE
-          value: $(params.image-name)
+          value: gcr.io/kaniko-project/executor:v0.17.1
         - name: CONTEXT
-          value: $(params.path-to-image-context)
+          value: /workspace/source/tekton-pipiline/src/details
         - name: DOCKERFILE
-          value: $(params.path-to-dockerfile)
+          value: /workspace/source/tekton-pipiline/src/details/Dockerfile
       workspaces:
         - name: source
           workspace: git-source
+    - name: build-image-mongodb
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: gcr.io/kaniko-project/executor:v0.17.1
+        - name: CONTEXT
+          value: /workspace/source/tekton-pipiline/src/mongodb
+        - name: DOCKERFILE
+          value: /workspace/source/tekton-pipiline/src/mongodb/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source
+    - name: build-image-mysql
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: gcr.io/kaniko-project/executor:v0.17.1
+        - name: CONTEXT
+          value: /workspace/source/samples/bookinfo/src/mysql
+        - name: DOCKERFILE
+          value: /workspace/source/samples/bookinfo/src/mysql/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source
+    - name: build-image-prodpage
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: gcr.io/kaniko-project/executor:v0.17.1
+        - name: CONTEXT
+          value: /workspace/source/samples/bookinfo/src/productpage
+        - name: DOCKERFILE
+          value: /workspace/source/samples/bookinfo/src/productpage/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source
+    - name: build-image-ratings
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: gcr.io/kaniko-project/executor:v0.17.1
+        - name: CONTEXT
+          value: /workspace/source/samples/bookinfo/src/reviews/reviews-wlpcfg/
+        - name: DOCKERFILE
+          value: /workspace/source/samples/bookinfo/src/reviews/reviews-wlpcfg/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source 
+    - name: build-image-reviews
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: gcr.io/kaniko-project/executor:v0.17.1
+        - name: CONTEXT
+          value: /workspace/source/samples/bookinfo/src/ratings
+        - name: DOCKERFILE
+          value: /workspace/source/samples/bookinfo/src/ratings/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                            
 ---
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
