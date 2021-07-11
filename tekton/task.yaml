@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: kustomize
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: create
+      image: istio/kubectl
+      command: [kubectl]
+      args:
+        - "apply"
+        - "-k"
+        - "/workspace/source/"

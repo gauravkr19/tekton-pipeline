@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dockerhub-service
+secrets:
+  - name: dockercreds
+---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: kaniko-pipeline
+spec:
+  params:
+    - name: git-url
+    - name: git-revision
+    - name: image-name
+    - name: path-to-image-context
+    - name: path-to-dockerfile
+  workspaces:
+    - name: git-source
+  tasks:
+    - name: fetch-from-git
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-url)
+        - name: revision
+          value: $(params.git-revision)
+      workspaces:
+        - name: output
+          workspace: git-source
+    - name: build-image
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-name)
+        - name: CONTEXT
+          value: $(params.path-to-image-context)
+        - name: DOCKERFILE
+          value: $(params.path-to-dockerfile)
+      workspaces:
+        - name: source
+          workspace: git-source
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-image-default
+spec:
+  serviceAccountName: tutorial-service
+  pipelineRef:
+    name: build-image
+  timeout: 1h0m0s
+  workspaces:
+  - name: source
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: dockerconfig
+    secret:
+      secretName: dockercreds            
