@@ -5,17 +5,24 @@ metadata:
 secrets:
   - name: dockercreds
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: default-cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: dockerhub-service
+    namespace: tekton-example
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: kaniko-pipeline
 spec:
-  params:
-    - name: git-url
-    - name: git-revision
-    - name: image-name
-    - name: path-to-image-context
-    - name: path-to-dockerfile
   workspaces:
     - name: git-source
   tasks:
@@ -24,7 +31,7 @@ spec:
         name: git-clone
       params:
         - name: url
-          value: https://github.com/gauravkr19/tekton-pipiline.git
+          value: https://github.com/gauravkr19/tekton-pipeline.git
         - name: revision
           value: master
       workspaces:
@@ -35,98 +42,11 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
+          value: gauravkr19/details:v2
         - name: CONTEXT
-          value: /workspace/source/tekton-pipiline/src/details
+          value: src/details
         - name: DOCKERFILE
-          value: /workspace/source/tekton-pipiline/src/details/Dockerfile
+          value: $(workspaces.source.path)/src/details/Dockerfile
       workspaces:
         - name: source
-          workspace: git-source
-    - name: build-image-mongodb
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
-        - name: CONTEXT
-          value: /workspace/source/tekton-pipiline/src/mongodb
-        - name: DOCKERFILE
-          value: /workspace/source/tekton-pipiline/src/mongodb/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source
-    - name: build-image-mysql
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
-        - name: CONTEXT
-          value: /workspace/source/samples/bookinfo/src/mysql
-        - name: DOCKERFILE
-          value: /workspace/source/samples/bookinfo/src/mysql/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source
-    - name: build-image-prodpage
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
-        - name: CONTEXT
-          value: /workspace/source/samples/bookinfo/src/productpage
-        - name: DOCKERFILE
-          value: /workspace/source/samples/bookinfo/src/productpage/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source
-    - name: build-image-ratings
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
-        - name: CONTEXT
-          value: /workspace/source/samples/bookinfo/src/reviews/reviews-wlpcfg/
-        - name: DOCKERFILE
-          value: /workspace/source/samples/bookinfo/src/reviews/reviews-wlpcfg/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source 
-    - name: build-image-reviews
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gcr.io/kaniko-project/executor:v0.17.1
-        - name: CONTEXT
-          value: /workspace/source/samples/bookinfo/src/ratings
-        - name: DOCKERFILE
-          value: /workspace/source/samples/bookinfo/src/ratings/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                            
----
-apiVersion: tekton.dev/v1beta1
-kind: PipelineRun
-metadata:
-  name: build-image-default
-spec:
-  serviceAccountName: tutorial-service
-  pipelineRef:
-    name: build-image
-  timeout: 1h0m0s
-  workspaces:
-  - name: source
-    volumeClaimTemplate:
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
-  - name: dockerconfig
-    secret:
-      secretName: dockercreds            
+          workspace: git-source                                                      

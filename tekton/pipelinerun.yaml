@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: build-image-default
+spec:
+  params:
+  - name: IMAGE
+    value: gauravkr19/details:v2
+  - name: CONTEXT
+    value: /workspace/source/src/details
+  - name: DOCKERFILE
+    value: $(workspaces.source.path)/src/details/Dockerfile
+  - name: url
+    value: https://github.com/gauravkr19/tekton-pipeline.git
+  - name: revision
+    value: master          
+  serviceAccountName: 'dockerhub-service'
+  pipelineRef:
+    name: "kaniko-pipeline"
+  timeout: 1h0m0s
+  workspaces:
+  - name: git-source
+    persistentVolumeClaim:
+      claimName: mypvc
+  - name: dockerconfig
+    secret:
+      secretName: dockercreds 
