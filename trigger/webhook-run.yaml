@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: create-webhook-run
-  namespace: getting-started
+  namespace: demo-app
 spec:
   taskRef:
     name: create-webhook
@@ -12,7 +12,7 @@ spec:
   - name: GitHubUser
     value: "gauravkr19"
   - name: GitHubRepo
-    value: "ulmaceae"
+    value: "tekton-pipeline"
   - name: GitHubSecretName
     value: webhook-secret
   - name: GitHubAccessTokenKey

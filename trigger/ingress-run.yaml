@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: create-ingress-run
-  namespace: getting-started
+  namespace: demo-app
 spec:
   taskRef:
     name: create-ingress
@@ -16,7 +16,7 @@ spec:
   - name: ExternalDomain
     value: karigar.myartsonline.com
   - name: Service
-    value: getting-started
+    value: demo-app
   - name: ServicePort
     value: "8080"
   timeout: 1000s
