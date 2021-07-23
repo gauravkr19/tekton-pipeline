@@ -1,27 +1,32 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: getting-started-triggertemplate
-  namespace: getting-started
+  name: demo-app-triggertemplate
+  namespace: demo-app
 spec:
   params:
-    - name: gitrevision
-      description: The git revision
-      default: main
-    - name: gitrepositoryurl
-      description: The git repository url
+    - name: IMAGE
+      value: gauravkr19/details:v2
+    - name: CONTEXT
+      value: /workspace/source/src/details
+    - name: DOCKERFILE
+      value: $(workspaces.source.path)/src/details/Dockerfile
+    - name: url
+      value: https://github.com/gauravkr19/tekton-pipeline.git
+    - name: revision
+      value: master
     - name: namespace
       description: The namespace to create the resources
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        generateName: getting-started-pipeline-run-
+        generateName: demo-app-pipeline-run-
         namespace: $(tt.params.namespace)
       spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
-          name: getting-started-pipeline
+          name: kaniko-pipeline
         resources:
           - name: source-repo
             resourceSpec:
@@ -36,37 +41,37 @@ spec:
               type: image
               params:
                 - name: url
-                  value: gauravkr19/getting-started # docker-repo-location.com/repo:getting-started
+                  value: gauravkr19/demo-app # docker-repo-location.com/repo:demo-app
           - name: event-to-sink
             resourceSpec:
               type: cloudEvent
               params:
                 - name: targetURI
-                  value: http://event-display.getting-started.svc.cluster.local
+                  value: http://event-display.demo-app.svc.cluster.local
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
-  name: getting-started-pipelinebinding
-  namespace: getting-started
+  name: demo-app-pipelinebinding
+  namespace: demo-app
 spec:
   params:
     - name: gitrevision
       value: $(body.head_commit.id)
     - name: namespace
-      value: getting-started
+      value: demo-app
     - name: gitrepositoryurl
       value: "https://github.com/$(body.repository.full_name)"
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
-  name: getting-started-listener
-  namespace: getting-started
+  name: demo-app-listener
+  namespace: demo-app
 spec:
   serviceAccountName: tekton-triggers-example-sa
   triggers:
     - bindings:
-      - ref: getting-started-pipelinebinding
+      - ref: demo-app-pipelinebinding
       template:
-        ref: getting-started-triggertemplate
+        ref: demo-app-triggertemplate
