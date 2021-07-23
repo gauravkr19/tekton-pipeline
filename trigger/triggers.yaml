@@ -40,7 +40,8 @@ spec:
             value: master          
         workspaces:
         - name: git-source
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: mypvc
         - name: dockerconfig
           secret:
             secretName: regcred            
