@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
   - name: IMAGE
-    value: gauravkr19/details:v2
+    value: gauravkr19/details:t2
   - name: CONTEXT
     value: /workspace/source/src/details
   - name: DOCKERFILE
@@ -14,14 +14,15 @@ spec:
     value: https://github.com/gauravkr19/tekton-pipeline.git
   - name: revision
     value: master          
-  serviceAccountName: 'dockerhub-service'
+  serviceAccountName: tekton-triggers-example-sa
   pipelineRef:
     name: "kaniko-pipeline"
   timeout: 1h0m0s
   workspaces:
   - name: git-source
-    persistentVolumeClaim:
-      claimName: mypvc
+    emptyDir: {}
+    # persistentVolumeClaim:
+    #   claimName: mypvc
   - name: dockerconfig
     secret:
-      secretName: dockercreds 
+      secretName: regcred 
