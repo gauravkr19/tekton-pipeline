@@ -27,27 +27,25 @@ spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
           name: kaniko-pipeline
-        resources:
-          - name: source-repo
-            resourceSpec:
-              type: git
-              params:
-              - name: revision
-                value: $(tt.params.gitrevision)
-              - name: url
-                value: $(tt.params.gitrepositoryurl)
-          - name: image-source
-            resourceSpec:
-              type: image
-              params:
-                - name: url
-                  value: gauravkr19/demo-app # docker-repo-location.com/repo:demo-app
-          - name: event-to-sink
-            resourceSpec:
-              type: cloudEvent
-              params:
-                - name: targetURI
-                  value: http://event-display.demo-app.svc.cluster.local
+        workspaces:
+        - name: git-source
+          emptyDir: {}
+        - name: dockerconfig
+          secret:
+            secretName: regcred            
+          #
+          # - name: image-source
+          #   resourceSpec:
+          #     type: image
+          #     params:
+          #       - name: url
+          #         value: gauravkr19/demo-app # docker-repo-location.com/repo:demo-app
+          # - name: event-to-sink
+          #   resourceSpec:
+          #     type: cloudEvent
+          #     params:
+          #       - name: targetURI
+          #         value: http://event-display.demo-app.svc.cluster.local
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
