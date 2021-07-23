@@ -52,4 +52,16 @@ spec:
           value: $(workspaces.source.path)/src/details/Dockerfile
       workspaces:
         - name: source
-          workspace: git-source                                                      
+          workspace: git-source
+    - name: deploy-locally
+      taskRef:
+        name: deploy-locally
+      resources:
+        inputs:
+          - name: image-source
+            resource: image-source
+            from:
+              - build-image-details
+        outputs:
+          - name: event-to-sink
+            resource: event-to-sink                                                             
