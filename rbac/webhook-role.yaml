@@ -40,6 +40,8 @@ kind: ServiceAccount
 metadata:
   name: tekton-triggers-createwebhook
   namespace: demo-app
+secrets:
+  - name: webhook-secret  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
