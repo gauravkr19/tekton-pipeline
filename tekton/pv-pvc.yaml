@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mypvc
-  namespace: tekton-example
+  namespace: demo-app
 spec:
   accessModes:
   - ReadWriteOnce
@@ -10,7 +10,7 @@ spec:
     requests:
       storage: 1Gi
   volumeMode: Filesystem
----
+
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
