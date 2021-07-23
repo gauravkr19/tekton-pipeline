@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tekton-triggers-example-sa
+  namespace: demo-app
 secrets:
   - name: regcred
   - name: webhook-secret
@@ -23,6 +24,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: kaniko-pipeline
+  namespace: demo-app  
 spec:
   workspaces:
     - name: git-source

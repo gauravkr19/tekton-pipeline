@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: build-image-default
+  namespace: demo-app
 spec:
   params:
   - name: IMAGE
