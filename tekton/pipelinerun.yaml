@@ -21,9 +21,8 @@ spec:
   timeout: 1h0m0s
   workspaces:
   - name: git-source
-    emptyDir: {}
-    # persistentVolumeClaim:
-    #   claimName: mypvc
+    persistentVolumeClaim:
+      claimName: mypvc
   - name: dockerconfig
     secret:
       secretName: regcred 
