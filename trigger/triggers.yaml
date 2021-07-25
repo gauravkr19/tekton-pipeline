@@ -29,20 +29,7 @@ spec:
           - name: revision
             value: master
           - name: namespace
-            description: The namespace to create the resources
-        resources:
-          - name: image-source 
-            resourceSpec:
-              type: image
-              params:
-                - name: url
-                  value: gauravkr19/details:v2 # docker-repo-location.com/repo:getting-started
-          - name: event-to-sink
-            resourceSpec:
-              type: cloudEvent
-              params:
-                - name: targetURI
-                  value: http://event-display.demo-app.svc.cluster.local                           
+            description: The namespace to create the resources                        
         workspaces:
         - name: git-source
           persistentVolumeClaim:
