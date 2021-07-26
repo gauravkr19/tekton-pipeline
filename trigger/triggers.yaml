@@ -3,16 +3,13 @@ kind: TriggerTemplate
 metadata:
   name: demo-app-triggertemplate
   namespace: demo-app
-spec:
-  params:
-    - name: namespace
-      description: The namespace to create the resources  
+spec: 
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         generateName: demo-app-pipeline-run-
-        namespace: $(tt.params.namespace)
+        namespace: demo-app
       spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
@@ -27,9 +24,7 @@ spec:
           - name: url
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision
-            value: master
-          - name: namespace
-            description: The namespace to create the resources                        
+            value: master                      
         workspaces:
         - name: git-source
           persistentVolumeClaim:
