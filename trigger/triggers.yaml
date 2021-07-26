@@ -19,7 +19,7 @@ spec:
           name: kaniko-pipeline
         params:
           - name: IMAGE
-            value: gauravkr19/details:v2
+            value: gauravkr19/details:latest
           - name: CONTEXT
             value: /workspace/source/src/details
           - name: DOCKERFILE

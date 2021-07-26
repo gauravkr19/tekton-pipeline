@@ -45,7 +45,7 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: gauravkr19/details:v2
+          value: gauravkr19/details:latest
         - name: CONTEXT
           value: src/details
         - name: DOCKERFILE
