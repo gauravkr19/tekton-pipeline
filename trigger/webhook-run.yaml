@@ -20,7 +20,7 @@ spec:
   - name: GitHubSecretStringKey
     value: secret
   - name: ExternalDomain
-    value: tekton.domain4free12233.tk
+    value: bookinfo.tekton-cicd-workflow.tk
 #   If you are using github enterprise, provide a value for GitHubDomain
 #  - name: GitHubDomain
 #    value: git.corp.com

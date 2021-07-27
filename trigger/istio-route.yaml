@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: tekton-triggers1
+  name: tekton-triggers
   namespace: demo-app
 spec:
   selector:
@@ -12,19 +12,19 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "tekton.domain4free12233.tk"
+    - "bookinfo.tekton-cicd-workflow.tk"
 ---
 
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: tekton-triggers1
+  name: tekton-triggers
   namespace: demo-app
 spec:
   hosts:
-  - "tekton.domain4free12233.tk"
+  - "bookinfo.tekton-cicd-workflow.tk"
   gateways:
-  - tekton-triggers1
+  - tekton-triggers
   http:
   - route:
     - destination:
