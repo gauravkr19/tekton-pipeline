@@ -68,7 +68,7 @@ spec:
         - name: CONTEXT
           value: $(params.contextDetails)
         - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextDetails)/Dockerfile
+          value: $(params.dockerfileDetails)
       workspaces:
         - name: source
           workspace: git-source                                                            
