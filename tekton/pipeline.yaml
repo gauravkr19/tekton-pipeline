@@ -82,11 +82,11 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: $(params.imageDetails)
+          value: gauravkr19/details:latest
         - name: CONTEXT
-          value: $(params.contextDetails)
+          value: src/details
         - name: DOCKERFILE
-          value: $(params.dockerfileDetails)
+          value: $(workspaces.source.path)/src/details/Dockerfile
       workspaces:
         - name: source
           workspace: git-source                                                            

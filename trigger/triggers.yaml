@@ -20,7 +20,7 @@ spec:
           - name: contextDetails
             value: ./src/details
           - name: dockerfileDetails
-            value: $(workspaces.source.path)/src/details/Dockerfile
+            value: ./src/details/Dockerfile
           - name: imageMongodb
             value: gauravkr19/mongodb:latest
           - name: contextMongodb
