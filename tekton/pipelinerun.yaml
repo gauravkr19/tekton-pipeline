@@ -6,7 +6,7 @@ metadata:
 spec:
   params:
   - name: IMAGE
-    value: gauravkr19/details:t2
+    value: gauravkr19/details:latest
   - name: CONTEXT
     value: /workspace/source/src/details
   - name: DOCKERFILE

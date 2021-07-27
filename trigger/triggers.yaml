@@ -15,12 +15,42 @@ spec:
         pipelineRef:
           name: kaniko-pipeline
         params:
-          - name: IMAGE
+          - name: imageDetails
             value: gauravkr19/details:latest
-          - name: CONTEXT
+          - name: contextDetails
             value: /workspace/source/src/details
-          - name: DOCKERFILE
+          - name: dockerfileDetails
             value: $(workspaces.source.path)/src/details/Dockerfile
+          - name: imageMongodb
+            value: gauravkr19/mongodb:latest
+          - name: contextMongodb
+            value: /workspace/source/src/mongodb/
+          - name: dockerfileMongodb
+            value: $(workspaces.source.path)/src/mongodb/Dockerfile
+          - name: imageMysql
+            value: gauravkr19/mysql:latest
+          - name: contextMysql
+            value: /workspace/source/src/mysql
+          - name: dockerfileMysql
+            value: $(workspaces.source.path)/src/mysql/Dockerfile
+          - name: imageProdpage
+            value: gauravkr19/prodpage:latest
+          - name: contextProdpage
+            value: /workspace/source/src/productpage
+          - name: dockerfileProdpage
+            value: $(workspaces.source.path)/src/productpage/Dockerfile
+          - name: imageRatings
+            value: gauravkr19/ratings:latest
+          - name: contextRatings
+            value: /workspace/source/src/ratings
+          - name: dockerfileRatings
+            value: $(workspaces.source.path)/src/ratings/Dockerfile
+          - name: imageReviews
+            value: gauravkr19/reviews:latest
+          - name: contextReviews
+            value: /workspace/source/src/reviews/reviews-wlpcfg
+          - name: dockerfileReviews
+            value: $(workspaces.source.path)/src/reviews/reviews-wlpcfg/Dockerfile
           - name: url
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision
@@ -32,19 +62,6 @@ spec:
         - name: dockerconfig
           secret:
             secretName: regcred            
-          #
-          # - name: image-source
-          #   resourceSpec:
-          #     type: image
-          #     params:
-          #       - name: url
-          #         value: gauravkr19/demo-app # docker-repo-location.com/repo:demo-app
-          # - name: event-to-sink
-          #   resourceSpec:
-          #     type: cloudEvent
-          #     params:
-          #       - name: targetURI
-          #         value: http://event-display.demo-app.svc.cluster.local
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding

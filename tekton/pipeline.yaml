@@ -26,6 +26,25 @@ metadata:
   name: kaniko-pipeline
   namespace: demo-app  
 spec:
+  params:
+    - name: imageDetails
+    - name: contextDetails
+    - name: dockerfileDetails
+    - name: imageMongodb
+    - name: contextMongodb
+    - name: dockerfileMongodb
+    - name: imageMysql
+    - name: contextMysql
+    - name: dockerfileMysql
+    - name: imageProdpage
+    - name: contextProdpage
+    - name: dockerfileProdpage
+    - name: imageRatings
+    - name: contextRatings
+    - name: dockerfileRatings
+    - name: imageReviews
+    - name: contextReviews
+    - name: dockerfileReviews
   workspaces:
     - name: git-source
   tasks:
@@ -45,11 +64,76 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: gauravkr19/details:latest
+          value: $(params.imageDetails)
         - name: CONTEXT
-          value: src/details
+          value: $(params.contextDetails)
         - name: DOCKERFILE
-          value: $(workspaces.source.path)/src/details/Dockerfile
+          value: $(workspaces.source.path)/$(params.contextDetails)/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                                            
+    - name: build-image-mongodb
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.imageMongodb)
+        - name: CONTEXT
+          value: $(params.contextMongodb)
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/$(params.contextMongodb)/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                                            
+    - name: build-image-mysql
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.imageMysql)
+        - name: CONTEXT
+          value: $(params.contextMysql)
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/$(params.contextMysql)/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                                            
+    - name: build-image-prodpage
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.imageProdpage)
+        - name: CONTEXT
+          value: $(params.contextProdpage)
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/$(params.contextProdpage)/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                                            
+    - name: build-image-ratings
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.imageRatings)
+        - name: CONTEXT
+          value: $(params.contextRatings)
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/$(params.contextRatings)/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source                                                            
+    - name: build-image-reviews
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.imageReviews)
+        - name: CONTEXT
+          value: $(params.contextReviews)
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/$(params.contextReviews)/Dockerfile
       workspaces:
         - name: source
           workspace: git-source                                                            
