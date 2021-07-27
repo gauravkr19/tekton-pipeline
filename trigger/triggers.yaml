@@ -18,7 +18,7 @@ spec:
           - name: imageDetails
             value: gauravkr19/details:latest
           - name: contextDetails
-            value: /workspace/source/src/details
+            value: ./src/details
           - name: dockerfileDetails
             value: $(workspaces.source.path)/src/details/Dockerfile
           - name: imageMongodb

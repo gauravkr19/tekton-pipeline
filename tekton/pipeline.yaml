@@ -28,23 +28,41 @@ metadata:
 spec:
   params:
     - name: imageDetails
+      type: string
     - name: contextDetails
+      type: string
     - name: dockerfileDetails
+      type: string
     - name: imageMongodb
+      type: string
     - name: contextMongodb
+      type: string
     - name: dockerfileMongodb
+      type: string
     - name: imageMysql
+      type: string
     - name: contextMysql
+      type: string
     - name: dockerfileMysql
+      type: string
     - name: imageProdpage
+      type: string
     - name: contextProdpage
+      type: string
     - name: dockerfileProdpage
+      type: string
     - name: imageRatings
+      type: string
     - name: contextRatings
+      type: string
     - name: dockerfileRatings
+      type: string
     - name: imageReviews
+      type: string
     - name: contextReviews
+      type: string
     - name: dockerfileReviews
+      type: string
   workspaces:
     - name: git-source
   tasks:
