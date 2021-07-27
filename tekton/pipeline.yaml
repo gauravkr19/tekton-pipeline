@@ -81,7 +81,7 @@ spec:
         - name: CONTEXT
           value: $(params.contextMongodb)
         - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextMongodb)/Dockerfile
+          value: $(params.dockerfileDetails)
       workspaces:
         - name: source
           workspace: git-source                                                            
