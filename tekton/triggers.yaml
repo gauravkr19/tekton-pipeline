@@ -14,6 +14,10 @@ spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
           name: kaniko-pipeline
+        taskRunSpecs:
+          - pipelineTaskName: gke-deploy-app
+            taskServiceAccountName: tf-sa-anthos-gke
+
         # params:
         #   # - name: imageDetails
         #   #   value: $(params.image-registry)/details
