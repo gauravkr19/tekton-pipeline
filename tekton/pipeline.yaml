@@ -53,19 +53,19 @@ spec:
       workspaces:
         - name: output
           workspace: git-source
-    - name: build-image-details
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: gauravkr19/details:latest
-        - name: CONTEXT
-          value: src/details
-        - name: DOCKERFILE
-          value: $(workspaces.source.path)/src/details/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                                            
+    # - name: build-image-details
+    #   taskRef:
+    #     name: kaniko
+    #   params:
+    #     - name: IMAGE
+    #       value: gauravkr19/details:latest
+    #     - name: CONTEXT
+    #       value: src/details
+    #     - name: DOCKERFILE
+    #       value: $(workspaces.source.path)/src/details/Dockerfile
+    #   workspaces:
+    #     - name: source
+    #       workspace: git-source                                                            
     - name: build-image-mongodb
       taskRef:
         name: kaniko
