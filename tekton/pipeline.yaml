@@ -71,11 +71,11 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: $(params.imageMongodb)
+          value: gauravkr19/mongodb:latest
         - name: CONTEXT
-          value: $(params.contextMongodb)
+          value: ./src/mongodb/
         - name: DOCKERFILE
-          value: $(params.dockerfileDetails)
+          value: ./src/mongodb/Dockerfile
       workspaces:
         - name: source
           workspace: git-source                                                           

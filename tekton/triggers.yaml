@@ -4,19 +4,19 @@ metadata:
   name: demo-app-triggertemplate
   namespace: demo-app
 spec:
-  # params:
+  params:
   #   - name: imageDetails
   #     value: gauravkr19/details:latest
   #   - name: contextDetails
   #     value: ./src/details
   #   - name: dockerfileDetails
   #     value: ./src/details/Dockerfile
-  #   - name: imageMongodb
-  #     value: gauravkr19/mongodb:latest
-  #   - name: contextMongodb
-  #     value: /workspace/source/src/mongodb/
-  #   - name: dockerfileMongodb
-  #     value: $(workspaces.source.path)/src/mongodb/Dockerfile
+    - name: imageMongodb
+      #value: gauravkr19/mongodb:latest
+    - name: contextMongodb
+      #value: /workspace/source/src/mongodb/
+    - name: dockerfileMongodb
+      #value: $(workspaces.source.path)/src/mongodb/Dockerfile
   #   - name: url
   #     value: https://github.com/gauravkr19/tekton-pipeline.git
   #   - name: revision
@@ -39,11 +39,11 @@ spec:
           - name: dockerfileDetails
             value: ./src/details/Dockerfile
           - name: imageMongodb
-            value: gauravkr19/mongodb:latest
+            value: $(tt.params.imageMongodb)
           - name: contextMongodb
-            value: ./src/mongodb/
+            value: $(tt.params.contextMongodb)
           - name: dockerfileMongodb
-            value: ./src/mongodb/Dockerfile
+            value: $(tt.params.dockerfileMongodb)
           - name: url
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision
