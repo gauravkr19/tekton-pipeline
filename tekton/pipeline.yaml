@@ -73,7 +73,7 @@ spec:
         - name: IMAGE
           value: gauravkr19/mongodb:latest
         - name: CONTEXT
-          value: src/mongodb/
+          value: src/mongodb
         - name: DOCKERFILE
           value: $(workspaces.source.path)/src/mongodb/Dockerfile
       workspaces:
