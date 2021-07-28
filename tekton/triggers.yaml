@@ -12,11 +12,11 @@ spec:
   #   - name: dockerfileDetails
   #     value: ./src/details/Dockerfile
     - name: imageMongodb
-      #value: gauravkr19/mongodb:latest
+      value: gauravkr19/mongodb:latest
     - name: contextMongodb
-      #value: /workspace/source/src/mongodb/
+      value: /workspace/source/src/mongodb/
     - name: dockerfileMongodb
-      #value: $(workspaces.source.path)/src/mongodb/Dockerfile
+      value: $(workspaces.source.path)/src/mongodb/Dockerfile
   #   - name: url
   #     value: https://github.com/gauravkr19/tekton-pipeline.git
   #   - name: revision
