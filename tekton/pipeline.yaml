@@ -86,7 +86,7 @@ spec:
         name: app-deploy-kubectl
       params:
       - name: imageURL
-        value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE_DIGEST)
+        value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE-DIGEST)
       - name: path
         value: $(workspaces.source.path)/manifests/details.yaml
       - name: yqArg
