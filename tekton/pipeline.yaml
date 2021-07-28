@@ -78,9 +78,6 @@ spec:
           value: src/mongodb
         - name: DOCKERFILE
           value: $(workspaces.source.path)/src/mongodb/Dockerfile
-        - name: EXTRA_ARGS
-          value:
-            - --no-cache
       workspaces:
         - name: source
           workspace: git-source
