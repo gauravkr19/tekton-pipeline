@@ -49,8 +49,6 @@ spec:
           - name: revision
             value: master                               
         workspaces:
-        - name: git-source
-          emptyDir: {}
         - name: dockerconfig
           secret:
             secretName: regcred            
