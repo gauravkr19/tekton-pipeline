@@ -3,7 +3,24 @@ kind: TriggerTemplate
 metadata:
   name: demo-app-triggertemplate
   namespace: demo-app
-spec: 
+spec:
+  params:
+    - name: imageDetails
+      value: gauravkr19/details:latest
+    - name: contextDetails
+      value: ./src/details
+    - name: dockerfileDetails
+      value: ./src/details/Dockerfile
+    - name: imageMongodb
+      value: gauravkr19/mongodb:latest
+    - name: contextMongodb
+      value: /workspace/source/src/mongodb/
+    - name: dockerfileMongodb
+      value: $(workspaces.source.path)/src/mongodb/Dockerfile
+    - name: url
+      value: https://github.com/gauravkr19/tekton-pipeline.git
+    - name: revision
+      value: master
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -13,24 +30,7 @@ spec:
       spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
-          name: kaniko-pipeline
-        params:
-          - name: imageDetails
-            value: gauravkr19/details:latest
-          - name: contextDetails
-            value: ./src/details
-          - name: dockerfileDetails
-            value: ./src/details/Dockerfile
-          - name: imageMongodb
-            value: gauravkr19/mongodb:latest
-          - name: contextMongodb
-            value: /workspace/source/src/mongodb/
-          - name: dockerfileMongodb
-            value: $(workspaces.source.path)/src/mongodb/Dockerfile
-          - name: url
-            value: https://github.com/gauravkr19/tekton-pipeline.git
-          - name: revision
-            value: master                      
+          name: kaniko-pipeline                      
         workspaces:
         - name: git-source
           persistentVolumeClaim:
