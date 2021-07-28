@@ -39,30 +39,6 @@ spec:
       type: string
     - name: dockerfileMongodb
       type: string
-    - name: imageMysql
-      type: string
-    - name: contextMysql
-      type: string
-    - name: dockerfileMysql
-      type: string
-    - name: imageProdpage
-      type: string
-    - name: contextProdpage
-      type: string
-    - name: dockerfileProdpage
-      type: string
-    - name: imageRatings
-      type: string
-    - name: contextRatings
-      type: string
-    - name: dockerfileRatings
-      type: string
-    - name: imageReviews
-      type: string
-    - name: contextReviews
-      type: string
-    - name: dockerfileReviews
-      type: string
   workspaces:
     - name: git-source
   tasks:
@@ -102,56 +78,4 @@ spec:
           value: $(params.dockerfileDetails)
       workspaces:
         - name: source
-          workspace: git-source                                                            
-    - name: build-image-mysql
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: $(params.imageMysql)
-        - name: CONTEXT
-          value: $(params.contextMysql)
-        - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextMysql)/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                                            
-    - name: build-image-prodpage
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: $(params.imageProdpage)
-        - name: CONTEXT
-          value: $(params.contextProdpage)
-        - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextProdpage)/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                                            
-    - name: build-image-ratings
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: $(params.imageRatings)
-        - name: CONTEXT
-          value: $(params.contextRatings)
-        - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextRatings)/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                                            
-    - name: build-image-reviews
-      taskRef:
-        name: kaniko
-      params:
-        - name: IMAGE
-          value: $(params.imageReviews)
-        - name: CONTEXT
-          value: $(params.contextReviews)
-        - name: DOCKERFILE
-          value: $(workspaces.source.path)/$(params.contextReviews)/Dockerfile
-      workspaces:
-        - name: source
-          workspace: git-source                                                            
+          workspace: git-source                                                           
