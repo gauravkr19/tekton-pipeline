@@ -16,13 +16,13 @@ spec:
           name: kaniko-pipeline
         params:
           - name: imageDetails
-            value: gauravkr19/details:latest
+            value: $(params.image-registry)/details
           - name: contextDetails
             value: ./src/details
           - name: dockerfileDetails
             value: ./src/details/Dockerfile
           - name: imageMongodb
-            value: gauravkr19/mongodb:latest
+            value: $(params.image-registry)/mongodb
           - name: contextMongodb
             value: ./src/mongodb/
           - name: dockerfileMongodb

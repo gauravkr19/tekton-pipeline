@@ -27,8 +27,10 @@ metadata:
   namespace: demo-app  
 spec:
   params:
+    - name: image-registry
+      default: docker.io/gauravkr19
     - name: imageDetails
-      type: string
+      type: string      
     - name: contextDetails
       type: string
     - name: dockerfileDetails
@@ -58,7 +60,7 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: gauravkr19/details:latest
+          value: $(params.image-registry)/details
         - name: CONTEXT
           value: src/details
         - name: DOCKERFILE
@@ -71,11 +73,26 @@ spec:
         name: kaniko
       params:
         - name: IMAGE
-          value: gauravkr19/mongodb:latest
+          value: $(params.image-registry)/mongodb
         - name: CONTEXT
           value: src/mongodb
         - name: DOCKERFILE
           value: $(workspaces.source.path)/src/mongodb/Dockerfile
       workspaces:
         - name: source
-          workspace: git-source                                                           
+          workspace: git-source
+    # - name: deploy-app
+    #   taskRef:
+    #     name: app-deploy-kubectl
+    #   params:
+    #   - name: imageURL
+    #     value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE_DIGEST)
+    #   - name: path
+    #     value: $(workspaces.source.path)/manifests/details.yaml
+    #   - name: yqArg
+    #     value: "-d3"
+    #   - name: yamlPathToImage
+    #     value: "spec.template.spec.containers[0].image"
+    #   workspaces:
+    #   - name: source
+    #     workspace: git-source                                                                    
