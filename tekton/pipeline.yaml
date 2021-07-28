@@ -81,18 +81,18 @@ spec:
       workspaces:
         - name: source
           workspace: git-source
-    # - name: deploy-app
-    #   taskRef:
-    #     name: app-deploy-kubectl
-    #   params:
-    #   - name: imageURL
-    #     value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE_DIGEST)
-    #   - name: path
-    #     value: $(workspaces.source.path)/manifests/details.yaml
-    #   - name: yqArg
-    #     value: "-d3"
-    #   - name: yamlPathToImage
-    #     value: "spec.template.spec.containers[0].image"
-    #   workspaces:
-    #   - name: source
-    #     workspace: git-source                                                                    
+    - name: deploy-app
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE_DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/details.yaml
+      - name: yqArg
+        value: "-d3"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                    
