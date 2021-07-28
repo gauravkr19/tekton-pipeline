@@ -48,10 +48,7 @@ spec:
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision
             value: master                               
-        workspaces:
-        - name: dockerconfig
-          secret:
-            secretName: regcred            
+                        
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
