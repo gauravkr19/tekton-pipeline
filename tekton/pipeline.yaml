@@ -136,6 +136,7 @@ spec:
         - name: source
           workspace: git-source          
     - name: build-image-reviews-v2
+      runAfter: [build-image-reviews-v1]
       taskRef:
         name: kaniko
       params:
@@ -149,6 +150,7 @@ spec:
         - name: source
           workspace: git-source          
     - name: build-image-reviews-v3
+      runAfter: [build-image-reviews-v2]
       taskRef:
         name: kaniko
       params:
