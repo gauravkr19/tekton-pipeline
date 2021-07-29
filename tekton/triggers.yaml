@@ -18,23 +18,23 @@ spec:
         #   - pipelineTaskName: gke-deploy-app
         #     taskServiceAccountName: tekton-deploy-task-sa
 
-        # params:
-        #   - name: imageDetails
-        #     value: $(params.image-registry)/details
-        #   - name: contextDetails
-        #     value: ./src/details
-        #   - name: dockerfileDetails
-        #     value: ./src/details/Dockerfile
-        #   - name: imageMongodb
-        #     value: $(params.image-registry)/mongodb
-        #   - name: contextMongodb
-        #     value: ./src/mongodb/
-        #   - name: dockerfileMongodb
-        #     value: ./src/mongodb/Dockerfile
-        #   - name: url
-        #     value: https://github.com/gauravkr19/tekton-pipeline.git
-        #   - name: revision
-        #     value: master                           
+        params:
+          - name: imageDetails
+            value: $(params.image-registry)/details
+          - name: contextDetails
+            value: ./src/details
+          - name: dockerfileDetails
+            value: ./src/details/Dockerfile
+          - name: imageMongodb
+            value: $(params.image-registry)/mongodb
+          - name: contextMongodb
+            value: ./src/mongodb/
+          - name: dockerfileMongodb
+            value: ./src/mongodb/Dockerfile
+          - name: url
+            value: https://github.com/gauravkr19/tekton-pipeline.git
+          - name: revision
+            value: master                           
         workspaces:
         - name: git-source
           persistentVolumeClaim:
