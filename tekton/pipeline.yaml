@@ -30,16 +30,40 @@ spec:
     - name: image-registry
       default: docker.io/gauravkr19
     - name: imageDetails
-      type: string      
+      type: string
     - name: contextDetails
       type: string
     - name: dockerfileDetails
       type: string
-    - name: imageMongodb
+    # - name: imageMongodb
+    #   type: string
+    # - name: contextMongodb
+    #   type: string
+    # - name: dockerfileMongodb
+    #   type: string
+    # - name: imageMysql
+    #   type: string
+    # - name: contextMysql
+    #   type: string
+    # - name: dockerfileMysql
+    #   type: string
+    - name: imageProdpage
       type: string
-    - name: contextMongodb
+    - name: contextProdpage
       type: string
-    - name: dockerfileMongodb
+    - name: dockerfileProdpage
+      type: string
+    - name: imageRatings
+      type: string
+    - name: contextRatings
+      type: string
+    - name: dockerfileRatings
+      type: string
+    - name: imageReviews
+      type: string
+    - name: contextReviews
+      type: string
+    - name: dockerfileReviews
       type: string
   workspaces:
     - name: git-source
@@ -68,19 +92,45 @@ spec:
       workspaces:
         - name: source
           workspace: git-source                                                            
-    - name: build-image-mongodb
+    - name: build-image-prodpage
       taskRef:
         name: kaniko
       params:
         - name: IMAGE
-          value: $(params.image-registry)/mongodb
+          value: $(params.image-registry)/prodpage
         - name: CONTEXT
-          value: src/mongodb
+          value: src/productpage
         - name: DOCKERFILE
-          value: $(workspaces.source.path)/src/mongodb/Dockerfile
+          value: $(workspaces.source.path)/src/productpage/Dockerfile
       workspaces:
         - name: source
           workspace: git-source
+    - name: build-image-ratings
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-registry)/ratings
+        - name: CONTEXT
+          value: src/ratings
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/src/ratings/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source
+    - name: build-image-reviews
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-registry)/reviews
+        - name: CONTEXT
+          value: src/reviews-wlpcfg/reviews
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/src/reviews-wlpcfg/reviews/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source          
     - name: deploy-app
       taskRef:
         name: app-deploy-kubectl
@@ -95,20 +145,5 @@ spec:
         value: "spec.template.spec.containers[0].image"
       workspaces:
       - name: source
-        workspace: git-source
-    # - name: gke-deploy-app
-    #   runAfter: [deploy-app]
-    #   taskRef:
-    #     name: gke-deploy
-    #   params:
-    #   - name: ARGS
-    #     value:
-    #     - run
-    #     - --filename="$(workspaces.source.path)/manifests/details.yaml"
-    #     - --cluster=anthos-gke
-    #     - --location=us-east4
-    #     - --project=bcm-pcidss-devops-gaurav
-    #   workspaces:
-    #   - name: source
-    #     workspace: git-source                                                                         
+        workspace: git-source                                                                        
 

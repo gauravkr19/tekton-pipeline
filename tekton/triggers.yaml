@@ -14,10 +14,6 @@ spec:
         serviceAccountName: tekton-triggers-example-sa
         pipelineRef:
           name: kaniko-pipeline
-        # taskRunSpecs:
-        #   - pipelineTaskName: gke-deploy-app
-        #     taskServiceAccountName: tekton-deploy-task-sa
-
         params:
           - name: imageDetails
             value: $(params.image-registry)/details
@@ -25,12 +21,24 @@ spec:
             value: ./src/details
           - name: dockerfileDetails
             value: ./src/details/Dockerfile
-          - name: imageMongodb
-            value: $(params.image-registry)/mongodb
-          - name: contextMongodb
-            value: ./src/mongodb/
-          - name: dockerfileMongodb
-            value: ./src/mongodb/Dockerfile
+          - name: imageProdpage
+            value: $(params.image-registry)/Prodpage
+          - name: contextProdpage
+            value: ./src/productpage/
+          - name: dockerfileProdpage
+            value: ./src/productpage/Dockerfile
+          - name: imageRatings
+            value: $(params.image-registry)/ratings
+          - name: contextRatings
+            value: ./src/ratings/
+          - name: dockerfileRatings
+            value: ./src/ratings/Dockerfile 
+          - name: imageReviews
+            value: $(params.image-registry)/reviews
+          - name: contextReviews
+            value: ./src/reviews-wlpcfg/reviews
+          - name: dockerfileReviews
+            value: ./src/reviews-wlpcfg/reviews/Dockerfile                       
           - name: url
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision
