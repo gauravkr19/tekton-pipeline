@@ -132,7 +132,6 @@ spec:
       - name: ARGS
         value:
         - run
-        - --image=$(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE-DIGEST)
         - --filename="$(workspaces.source.path)/manifests/details.yaml"
         - --cluster=anthos-gke
         - --location=us-east4
