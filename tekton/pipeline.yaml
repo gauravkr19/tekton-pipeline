@@ -59,7 +59,11 @@ spec:
       type: string
     - name: dockerfileRatings
       type: string
-    - name: imageReviews
+    - name: imageReviews-v1
+      type: string
+    - name: imageReviews-v2
+      type: string
+    - name: imageReviews-v3
       type: string
     - name: contextReviews
       type: string
@@ -118,12 +122,38 @@ spec:
       workspaces:
         - name: source
           workspace: git-source
-    - name: build-image-reviews
+    - name: build-image-reviews-v1
       taskRef:
         name: kaniko
       params:
         - name: IMAGE
-          value: $(params.image-registry)/reviews
+          value: $(params.image-registry)/reviews-v1
+        - name: CONTEXT
+          value: src/reviews/reviews-wlpcfg
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/src/reviews/reviews-wlpcfg/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source          
+    - name: build-image-reviews-v2
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-registry)/reviews-v2
+        - name: CONTEXT
+          value: src/reviews/reviews-wlpcfg
+        - name: DOCKERFILE
+          value: $(workspaces.source.path)/src/reviews/reviews-wlpcfg/Dockerfile
+      workspaces:
+        - name: source
+          workspace: git-source          
+    - name: build-image-reviews-v3
+      taskRef:
+        name: kaniko
+      params:
+        - name: IMAGE
+          value: $(params.image-registry)/reviews-v3
         - name: CONTEXT
           value: src/reviews/reviews-wlpcfg
         - name: DOCKERFILE
@@ -176,16 +206,46 @@ spec:
       workspaces:
       - name: source
         workspace: git-source                                                                        
-    - name: deploy-app-reviews
+    - name: deploy-app-reviews-v1
       taskRef:
         name: app-deploy-kubectl
       params:
       - name: imageURL
-        value: $(params.image-registry)/reviews@$(tasks.build-image-reviews.results.IMAGE-DIGEST)
+        value: $(params.image-registry)/reviews-v1@$(tasks.build-image-reviews-v1.results.IMAGE-DIGEST)
       - name: path
         value: $(workspaces.source.path)/manifests/reviews.yaml
       - name: yqArg
         value: "-d2"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                        
+    - name: deploy-app-reviews-v2
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/reviews-v2@$(tasks.build-image-reviews-v2.results.IMAGE-DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/reviews.yaml
+      - name: yqArg
+        value: "-d3"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                        
+    - name: deploy-app-reviews-v3
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/reviews-v3@$(tasks.build-image-reviews-v3.results.IMAGE-DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/reviews.yaml
+      - name: yqArg
+        value: "-d4"
       - name: yamlPathToImage
         value: "spec.template.spec.containers[0].image"
       workspaces:

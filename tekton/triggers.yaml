@@ -33,8 +33,12 @@ spec:
             value: ./src/ratings/
           - name: dockerfileRatings
             value: ./src/ratings/Dockerfile 
-          - name: imageReviews
-            value: $(params.image-registry)/reviews
+          - name: imageReviews-v1
+            value: $(params.image-registry)/reviews-v1
+          - name: imageReviews-v2
+            value: $(params.image-registry)/reviews-v2
+          - name: imageReviews-v3
+            value: $(params.image-registry)/reviews-v3
           - name: contextReviews
             value: ./src/reviews/reviews-wlpcfg
           - name: dockerfileReviews
