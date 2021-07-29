@@ -96,19 +96,19 @@ spec:
       workspaces:
       - name: source
         workspace: git-source
-    - name: gke-deploy-app
-      runAfter: [deploy-app]
-      taskRef:
-        name: gke-deploy
-      params:
-      - name: ARGS
-        value:
-        - run
-        - --filename="$(workspaces.source.path)/manifests/details.yaml"
-        - --cluster=anthos-gke
-        - --location=us-east4
-        - --project=bcm-pcidss-devops-gaurav
-      workspaces:
-      - name: source
-        workspace: git-source                                                                         
+    # - name: gke-deploy-app
+    #   runAfter: [deploy-app]
+    #   taskRef:
+    #     name: gke-deploy
+    #   params:
+    #   - name: ARGS
+    #     value:
+    #     - run
+    #     - --filename="$(workspaces.source.path)/manifests/details.yaml"
+    #     - --cluster=anthos-gke
+    #     - --location=us-east4
+    #     - --project=bcm-pcidss-devops-gaurav
+    #   workspaces:
+    #   - name: source
+    #     workspace: git-source                                                                         
 

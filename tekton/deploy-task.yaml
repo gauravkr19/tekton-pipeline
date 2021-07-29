@@ -25,10 +25,10 @@ spec:
     - "$(params.path)"
     - "$(params.yamlPathToImage)"
     - "$(params.imageURL)"
-  # - name: run-kubectl
-  #   image: lachlanevenson/k8s-kubectl
-  #   command: ['kubectl']
-  #   args:
-  #   - 'apply'
-  #   - '-f'
-  #   - '$(params.path)'
+  - name: run-kubectl
+    image: lachlanevenson/k8s-kubectl
+    command: ['kubectl']
+    args:
+    - 'apply'
+    - '-f'
+    - '$(params.path)'
