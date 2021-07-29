@@ -36,9 +36,9 @@ spec:
           - name: imageReviews
             value: $(params.image-registry)/reviews
           - name: contextReviews
-            value: ./src/reviews-wlpcfg/reviews
+            value: ./src/reviews/reviews-wlpcfg
           - name: dockerfileReviews
-            value: ./src/reviews-wlpcfg/reviews/Dockerfile                       
+            value: ./src/reviews/reviews-wlpcfg/Dockerfile                      
           - name: url
             value: https://github.com/gauravkr19/tekton-pipeline.git
           - name: revision

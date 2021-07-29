@@ -125,9 +125,9 @@ spec:
         - name: IMAGE
           value: $(params.image-registry)/reviews
         - name: CONTEXT
-          value: src/reviews-wlpcfg/reviews
+          value: src/reviews/reviews-wlpcfg
         - name: DOCKERFILE
-          value: $(workspaces.source.path)/src/reviews-wlpcfg/reviews/Dockerfile
+          value: $(workspaces.source.path)/src/reviews/reviews-wlpcfg/Dockerfile
       workspaces:
         - name: source
           workspace: git-source          
