@@ -131,7 +131,7 @@ spec:
       workspaces:
         - name: source
           workspace: git-source          
-    - name: deploy-app
+    - name: deploy-app-details
       taskRef:
         name: app-deploy-kubectl
       params:
@@ -139,6 +139,51 @@ spec:
         value: $(params.image-registry)/details@$(tasks.build-image-details.results.IMAGE-DIGEST)
       - name: path
         value: $(workspaces.source.path)/manifests/details.yaml
+      - name: yqArg
+        value: "-d2"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                        
+    - name: deploy-app-prodpage
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/prodpage@$(tasks.build-image-prodpage.results.IMAGE-DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/prodpage.yaml
+      - name: yqArg
+        value: "-d2"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                        
+    - name: deploy-app-ratings
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/ratings@$(tasks.build-image-ratings.results.IMAGE-DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/ratings.yaml
+      - name: yqArg
+        value: "-d2"
+      - name: yamlPathToImage
+        value: "spec.template.spec.containers[0].image"
+      workspaces:
+      - name: source
+        workspace: git-source                                                                        
+    - name: deploy-app-reviews
+      taskRef:
+        name: app-deploy-kubectl
+      params:
+      - name: imageURL
+        value: $(params.image-registry)/reviews@$(tasks.build-image-reviews.results.IMAGE-DIGEST)
+      - name: path
+        value: $(workspaces.source.path)/manifests/reviews.yaml
       - name: yqArg
         value: "-d2"
       - name: yamlPathToImage
