@@ -213,7 +213,7 @@ spec:
       - name: imageURL
         value: $(params.image-registry)/reviews-v1@$(tasks.build-image-reviews-v1.results.IMAGE-DIGEST)
       - name: path
-        value: $(workspaces.source.path)/manifests/reviews.yaml
+        value: $(workspaces.source.path)/manifests/reviews-v1.yaml
       - name: yqArg
         value: "-d2"
       - name: yamlPathToImage
@@ -228,9 +228,9 @@ spec:
       - name: imageURL
         value: $(params.image-registry)/reviews-v2@$(tasks.build-image-reviews-v2.results.IMAGE-DIGEST)
       - name: path
-        value: $(workspaces.source.path)/manifests/reviews.yaml
+        value: $(workspaces.source.path)/manifests/reviews-v2.yaml
       - name: yqArg
-        value: "-d3"
+        value: "-d0"
       - name: yamlPathToImage
         value: "spec.template.spec.containers[0].image"
       workspaces:
@@ -243,9 +243,9 @@ spec:
       - name: imageURL
         value: $(params.image-registry)/reviews-v3@$(tasks.build-image-reviews-v3.results.IMAGE-DIGEST)
       - name: path
-        value: $(workspaces.source.path)/manifests/reviews.yaml
+        value: $(workspaces.source.path)/manifests/reviews-v3.yaml
       - name: yqArg
-        value: "-d4"
+        value: "-d0"
       - name: yamlPathToImage
         value: "spec.template.spec.containers[0].image"
       workspaces:
