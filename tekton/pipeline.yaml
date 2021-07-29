@@ -27,8 +27,6 @@ metadata:
   namespace: demo-app  
 spec:
   params:
-    - name: ARGS
-      type: array
     - name: image-registry
       default: docker.io/gauravkr19
     - name: imageDetails
