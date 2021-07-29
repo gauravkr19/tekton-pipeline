@@ -32,3 +32,5 @@ spec:
     - 'apply'
     - '-f'
     - '$(params.path)'
+    - '-n'
+    - 'bookinfo'
