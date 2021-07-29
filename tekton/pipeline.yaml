@@ -27,34 +27,8 @@ metadata:
   namespace: demo-app  
 spec:
   params:
-    - name: pathToContext
-      type: string
-      description: The path to the build context relative to your source repo's root. This is used by Kaniko.
-      default: .
-    - name: pathToDockerFile
-      type: string
-      description: The path to the dockerfile to build, relative to the context.
-      default: Dockerfile
-    - name: pathToKubernetesConfigs
-      type: string
-      description: The path to the Kubernetes configs to deploy, relative to your source repo's root.
-    - name: imageUrl
-      type: string
-      description: URL of image repository.
-    - name: imageTag
-      type: string
-      description: Tag to apply to the built image.
-      default: latest
-    - name: clusterName
-      type: string
-      description: Name of target GKE cluster to deploy to.
-    - name: clusterLocation
-      type: string
-      description: Zone/region of target GKE cluster to deploy to.
-    - name: clusterProject
-      type: string
-      description: Project of target GKE cluster to deploy to.
-      default: ''
+    - name: ARGS
+      type: array
     - name: image-registry
       default: docker.io/gauravkr19
     - name: imageDetails
